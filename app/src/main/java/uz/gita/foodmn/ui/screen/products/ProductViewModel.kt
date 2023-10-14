@@ -12,14 +12,13 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.gita.foodmn.data.model.ProductData2
-import uz.gita.foodmn.domain.AppRepastory
+import uz.gita.foodmn.domain.AppRepository
 import uz.gita.foodmn.ui.screen.add.AddScreen
-import uz.gita.foodmn.util.logger
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val repastory: AppRepastory,
+    private val repastory: AppRepository,
     private val diraction: ProductDiraction
 ) : ViewModel(), ProductContract.ViewModel {
 

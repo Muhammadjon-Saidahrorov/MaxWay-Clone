@@ -9,12 +9,12 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.foodmn.domain.AppRepastory
+import uz.gita.foodmn.domain.AppRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    private val repastory: AppRepastory,
+    private val repastory: AppRepository,
     private val diraction: AddDiraction
 ) : ViewModel(), AddContract.ViewModel {
 
@@ -26,7 +26,7 @@ class AddViewModel @Inject constructor(
             is AddContract.Intent.Add -> {
                 var bool = false
                 var bool2 = true
-                repastory.getAllProductForBusket().onEach {
+                repastory.getAllProductForBucket().onEach {
                     it.forEach {
                         if (it.imgUrl == intent.orderedProduct.imgUrl && it.price == intent.orderedProduct.price && it.title == intent.orderedProduct.title) {
                             bool = true
@@ -36,7 +36,7 @@ class AddViewModel @Inject constructor(
                     if (bool && bool2) {
                         intent { postSideEffect(AddContract.SideEffect.Toast("Your order is in the cart !")) }
                     } else if(bool2){
-                        repastory.saveProductForBusket(intent.orderedProduct)
+                        repastory.saveProductForBucket(intent.orderedProduct)
                         intent { postSideEffect(AddContract.SideEffect.Toast("Your order has been added to the cart !")) }
                         bool2 = false
                     }

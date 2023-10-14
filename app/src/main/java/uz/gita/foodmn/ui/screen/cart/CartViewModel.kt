@@ -9,13 +9,12 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.foodmn.domain.AppRepastory
-import uz.gita.foodmn.util.logger
+import uz.gita.foodmn.domain.AppRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val repastory: AppRepastory
+    private val repastory: AppRepository
 ) : ViewModel(), CartContract.ViewModel {
 
     override val container = container<CartContract.UIState, CartContract.SideEffect>(
@@ -25,13 +24,13 @@ class CartViewModel @Inject constructor(
     override fun onEventDispatcher(intent: CartContract.Intent) {
         when (intent) {
             is CartContract.Intent.DeleteAll -> {
-                repastory.deleteAllDataFromBusket(intent.datas)
+                repastory.deleteAllDataFromBucket(intent.datas)
             }
             is CartContract.Intent.DeleteData -> {
-                repastory.deleteFromBusket(intent.data)
+                repastory.deleteFromBucket(intent.data)
             }
             is CartContract.Intent.Update -> {
-                repastory.updateProductInBusket(intent.data)
+                repastory.updateProductInBucket(intent.data)
             }
             is CartContract.Intent.Order -> {
                 repastory.updateAll(intent.datas)
@@ -40,7 +39,7 @@ class CartViewModel @Inject constructor(
             is CartContract.Intent.Add -> {
                 var bool = false
                 var bool2 = true
-                repastory.getAllProductForBusket().onEach {
+                repastory.getAllProductForBucket().onEach {
 
                     it.forEach { data ->
                         if (data.imgUrl == intent.orderedProduct.imgUrl && data.price == intent.orderedProduct.price && data.title == intent.orderedProduct.title) {
@@ -51,7 +50,7 @@ class CartViewModel @Inject constructor(
                     if (bool && bool2) {
 //                        intent { postSideEffect(CartContract.SideEffect.Toast("Your order is in the cart !")) }
                     } else if (bool2) {
-                        repastory.saveProductForBusket(intent.orderedProduct)
+                        repastory.saveProductForBucket(intent.orderedProduct)
 //                        intent { postSideEffect(CartContract.SideEffect.Toast("Your order has been added to the cart !")) }
                         bool2 = false
                     }
@@ -61,7 +60,7 @@ class CartViewModel @Inject constructor(
     }
 
     init {
-        repastory.getAllProductForBusket().onEach {
+        repastory.getAllProductForBucket().onEach {
             intent { reduce { state.copy(products = it.map { it.toData() }) } }
         }.launchIn(viewModelScope)
 

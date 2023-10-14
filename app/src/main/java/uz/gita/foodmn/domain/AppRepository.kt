@@ -7,7 +7,7 @@ import uz.gita.foodmn.data.model.ProductData2
 import uz.gita.foodmn.data.source.local.entity.CategoryEntity
 import uz.gita.foodmn.data.source.local.entity.OrderedProductEntity
 
-interface AppRepastory {
+interface AppRepository {
     fun getAllProducts(): Flow<List<ProductData>>
     fun getSearchedProducts(query:String): Flow<List<ProductData>>
     fun getAllCategory():Flow<List<CategoryEntity>>
@@ -15,13 +15,13 @@ interface AppRepastory {
     fun getProductsByCategory(categoryName_:String): Flow<Result<List<ProductData2>>>
     fun getRecommendedProduct():List<ProductData>
 
-    fun saveProductForBusket(orderedProductData: OrderedProductData)
-    fun getAllProductForBusket():Flow<List<OrderedProductEntity>>
+    fun saveProductForBucket(orderedProductData: OrderedProductData)
+    fun getAllProductForBucket():Flow<List<OrderedProductEntity>>
     fun getAllOrderedProductsForHistory(): Flow<List<OrderedProductEntity>>
-    fun updateProductInBusket(orderedProductData: OrderedProductData)
+    fun updateProductInBucket(orderedProductData: OrderedProductData)
     fun updateAll(list:List<OrderedProductData>)
-    fun deleteFromBusket(orderedProductData: OrderedProductData)
-    fun deleteAllDataFromBusket(list:List<OrderedProductData>)
+    fun deleteFromBucket(orderedProductData: OrderedProductData)
+    fun deleteAllDataFromBucket(list:List<OrderedProductData>)
     fun deleteAllFromHistory()
 
     fun saveLastSelectedCategory(name:String)

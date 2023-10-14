@@ -24,12 +24,12 @@ import uz.gita.foodmn.util.logger
 import java.util.Collections
 import javax.inject.Inject
 
-class AppRepastoryImpl @Inject constructor(
+class AppRepositoryImpl @Inject constructor(
     private val orderedDao: OrderedProductDao,
     private val productDao: ProductDao,
     private val categoryDao: CategoryDao,
     private val pref: MyPref
-) : AppRepastory {
+) : AppRepository {
     private val db = Firebase.firestore
 
     init {
@@ -120,18 +120,18 @@ class AppRepastoryImpl @Inject constructor(
     }
 
 
-    override fun saveProductForBusket(orderedProductData: OrderedProductData) {
+    override fun saveProductForBucket(orderedProductData: OrderedProductData) {
         orderedDao.insert(orderedProductData.toEntity())
     }
 
-    override fun getAllProductForBusket(): Flow<List<OrderedProductEntity>> {
+    override fun getAllProductForBucket(): Flow<List<OrderedProductEntity>> {
         return orderedDao.getAllOrderedProductsForBusket()
     }
 
     override fun getAllOrderedProductsForHistory(): Flow<List<OrderedProductEntity>> =
         orderedDao.getAllOrderedProductsForHistory()
 
-    override fun updateProductInBusket(orderedProductData: OrderedProductData) {
+    override fun updateProductInBucket(orderedProductData: OrderedProductData) {
         orderedDao.update(orderedProductData.toEntity())
     }
 
@@ -139,11 +139,11 @@ class AppRepastoryImpl @Inject constructor(
         orderedDao.updateAll(list.map { it.toEntity().copy(isBuy = true) })
     }
 
-    override fun deleteFromBusket(orderedProductData: OrderedProductData) {
+    override fun deleteFromBucket(orderedProductData: OrderedProductData) {
         orderedDao.delete(orderedProductData.toEntity())
     }
 
-    override fun deleteAllDataFromBusket(list: List<OrderedProductData>) {
+    override fun deleteAllDataFromBucket(list: List<OrderedProductData>) {
         orderedDao.deleteAllFromBusket()
     }
 

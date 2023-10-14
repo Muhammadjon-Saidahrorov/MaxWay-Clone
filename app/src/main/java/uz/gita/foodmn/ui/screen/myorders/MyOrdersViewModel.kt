@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.onEach
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.foodmn.domain.AppRepastory
+import uz.gita.foodmn.domain.AppRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MyOrdersViewModel @Inject constructor(
-    private val repastory: AppRepastory
+    private val repastory: AppRepository
 ) : ViewModel(), MyOrdersContract.ViewModel {
 
     override val container =
