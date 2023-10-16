@@ -117,4 +117,6 @@ dependencies {
 
     //bottom navigation
     implementation "androidx.navigation:navigation-compose:2.6.0"
+
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
 }

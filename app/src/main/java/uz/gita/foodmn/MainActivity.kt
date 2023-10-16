@@ -23,11 +23,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.foodmn.util.navigation.NavigationHandler
 import uz.gita.foodmn.ui.screen.home.HomeScreen
+import uz.gita.foodmn.ui.theme.FoodMNTheme
 import uz.gita.foodmn.util.ConnectInternet
 import javax.inject.Inject
 
@@ -40,29 +42,38 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        window.statusBarColor = resources.getColor(R.color.white)
 
         setContent {
-            var isConnect by remember { mutableStateOf(ConnectInternet(this)) }
-            if (isConnect) {
-                Navigator(screen = HomeScreen()) { navigator ->
-                    LaunchedEffect(navigator) {
-                        navigationHandler.navigationStack
-                            .onEach { it.invoke(navigator) }
-                            .launchIn(lifecycleScope)
-                    }
-                    CurrentScreen()
-                }
-            } else {
-                NotNetworkContent {
-                    if (ConnectInternet(this)) {
-                        isConnect = true
-                    } else {
-                        Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+            FoodMNTheme {
+                var isConnect by remember { mutableStateOf(ConnectInternet(this)) }
 
+                val systemUiController = rememberSystemUiController()
+                // Change the status bar text color to dark
+                systemUiController.setStatusBarColor(
+                    color = Color.White, // Status bar background color
+                    darkIcons = true // Dark text/icons on the status bar
+                )
+
+                if (isConnect) {
+                    Navigator(screen = HomeScreen()) { navigator ->
+                        LaunchedEffect(navigator) {
+                            navigationHandler.navigationStack
+                                .onEach { it.invoke(navigator) }
+                                .launchIn(lifecycleScope)
+                        }
+                        CurrentScreen()
+                    }
+                } else {
+                    NotNetworkContent {
+                        if (ConnectInternet(this)) {
+                            isConnect = true
+                        } else {
+                            Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            }
         }
     }
 

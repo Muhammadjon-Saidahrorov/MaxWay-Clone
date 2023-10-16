@@ -71,6 +71,7 @@ private fun RowScope.TabNavigatorItem(tab: Tab, badgeCount: Int, bool: Boolean) 
 
     NavigationBarItem(
         selected = tabNavigator.current == tab,
+        colors = NavigationBarItemDefaults.colors(indicatorColor = Color(0xFFFFFFFF)) ,
         onClick = { tabNavigator.current = tab },
         label = {
             Text(
@@ -121,5 +122,7 @@ private fun RowScope.TabNavigatorItem(tab: Tab, badgeCount: Int, bool: Boolean) 
                 )
             }
 
-        })
+        }
+
+    )
 }
