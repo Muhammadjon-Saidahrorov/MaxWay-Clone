@@ -320,7 +320,7 @@ fun ImageSlider() {
                                 painter = painterResource(id = R.drawable.slide_1),
                                 contentDescription = "",
                                 modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.FillBounds
                             )
                         }
                     }
@@ -330,7 +330,7 @@ fun ImageSlider() {
                                 painter = painterResource(id = R.drawable.slide_2),
                                 contentDescription = "",
                                 modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.FillBounds
                             )
                         }
                     }
@@ -340,7 +340,7 @@ fun ImageSlider() {
                                 painter = painterResource(id = R.drawable.slide_3),
                                 contentDescription = "",
                                 modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.FillBounds
                             )
                         }
                     }

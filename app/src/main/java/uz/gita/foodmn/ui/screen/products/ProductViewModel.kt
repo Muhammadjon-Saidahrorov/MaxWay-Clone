@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val repastory: AppRepository,
-    private val diraction: ProductDiraction
+    private val diraction: ProductDirection
 ) : ViewModel(), ProductContract.ViewModel {
 
     override val container =

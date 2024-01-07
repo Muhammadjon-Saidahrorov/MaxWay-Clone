@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import uz.gita.foodmn.ui.screen.add.AddDiraction
 import uz.gita.foodmn.ui.screen.add.AddDiractionImpl
-import uz.gita.foodmn.ui.screen.products.ProductDiraction
+import uz.gita.foodmn.ui.screen.products.ProductDirection
 import uz.gita.foodmn.ui.screen.products.ProductDiractionImpl
 
 @Module
@@ -14,7 +14,7 @@ import uz.gita.foodmn.ui.screen.products.ProductDiractionImpl
 interface DiractionModule {
 
     @Binds
-    fun bindProductDiraction(impl: ProductDiractionImpl): ProductDiraction
+    fun bindProductDiraction(impl: ProductDiractionImpl): ProductDirection
 
     @Binds
     fun bindAddDiraction(impl: AddDiractionImpl): AddDiraction
